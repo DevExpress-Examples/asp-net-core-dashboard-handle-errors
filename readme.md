@@ -7,6 +7,9 @@
 <!-- default file list end -->
 
 # ASP.NET Core Dashboard - How to specify custom exception text
+<!-- run online -->
+**[[Run Online]](https://codecentral.devexpress.com/267254341/)**
+<!-- run online end -->
 
 The dashboard in this project contains invalid data connection. This example shows how to override the default text in the exception that occurs when a controller tries to load data.
 
