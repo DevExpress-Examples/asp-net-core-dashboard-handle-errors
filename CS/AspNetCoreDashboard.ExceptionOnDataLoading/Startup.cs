@@ -44,7 +44,7 @@ namespace AspNetCoreDashboard.ExceptionOnDataLoading {
             // Invalid connection parameters:
             switch (e.DataSourceName) {
                 case "sql":
-                    e.ConnectionParameters = new MsSqlConnectionParameters(@"teamdashboard", "Northwind123", null, null, MsSqlAuthorizationType.Windows);
+                    e.ConnectionParameters = new MsSqlConnectionParameters(@"localhost", "Northwind123", null, null, MsSqlAuthorizationType.Windows);
                     break;
             }
         }
