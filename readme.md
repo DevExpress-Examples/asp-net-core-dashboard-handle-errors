@@ -1,6 +1,6 @@
 # ASP.NET Core Dashboard - How to handle errors
 
-The following example demostrates two approaches on how to handle errors in the ASP.NET Core Dashboard applicaiton:
+The following example demostrates two approaches on how to handle errors in the ASP.NET Core Dashboard application:
 
 - How to specify custom text for internal Dashboard errors
 - How to throw a custom exception during a server-side processing and display the error in the Dashboard error toast
