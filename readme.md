@@ -1,4 +1,4 @@
-# ASP.NET Core Dashboard - How to handle errors
+# Dashboard for ASP.NET Core - How to handle errors
 
 The following example demostrates two approaches on how to handle errors in the ASP.NET Core Dashboard application:
 
