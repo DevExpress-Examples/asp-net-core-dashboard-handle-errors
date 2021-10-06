@@ -184,6 +184,7 @@ public class CustomDashboardStorage : IDashboardStorage {
 		};
 	}
 	XDocument IDashboardStorage.LoadDashboard(string dashboardID) {
+		// Custom Exception:
 		throw new CustomException();
 	}
 	void IDashboardStorage.SaveDashboard(string dashboardID, XDocument dashboard) {
