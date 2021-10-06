@@ -19,15 +19,13 @@ namespace AspNetCoreThrowCustomExceptionDashboardErrorToast {
         }
 
         public void ConfigureServices(IServiceCollection services) {
-            services
-                .AddMvc();
+            services.AddMvc();            
+            services.AddDevExpressControls();
             services.AddScoped<DashboardConfigurator>((IServiceProvider serviceProvider) => {
                 DashboardConfigurator configurator = new DashboardConfigurator();
                 configurator.SetDashboardStorage(new CustomDashboardStorage());
                 return configurator;
             });
-
-            services.AddDevExpressControls();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
