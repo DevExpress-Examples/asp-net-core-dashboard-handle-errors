@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
+using System;
 using System.Net;
 
 namespace AspNetCoreCustomTextForInternalDashboardErrors {
@@ -26,15 +27,16 @@ namespace AspNetCoreCustomTextForInternalDashboardErrors {
                 .AddMvc(options => {
                     // Uncomment this line to catch all exceptions (not only from Dashboard):
                     //options.Filters.Add(typeof(CustomExceptionFilter)); 
-                })
-                .AddDefaultDashboardController(configurator => {
-                    DashboardFileStorage dashboardStorage = new DashboardFileStorage(FileProvider.GetFileInfo("App_Data/Dashboards").PhysicalPath);
-                    DataSourceInMemoryStorage dataSourceStrorage = new DataSourceInMemoryStorage();
+                });
+            services.AddScoped<DashboardConfigurator>((IServiceProvider serviceProvider) => {
+                DashboardConfigurator configurator = new DashboardConfigurator();
+                DashboardFileStorage dashboardStorage = new DashboardFileStorage(FileProvider.GetFileInfo("App_Data/Dashboards").PhysicalPath);
+                 DataSourceInMemoryStorage dataSourceStrorage = new DataSourceInMemoryStorage();
 
-                    configurator.SetDashboardStorage(dashboardStorage);
-                    configurator.SetDataSourceStorage(dataSourceStrorage);
-                    configurator.ConfigureDataConnection += Configurator_ConfigureDataConnection;
-
+                configurator.SetDashboardStorage(dashboardStorage);
+                configurator.SetDataSourceStorage(dataSourceStrorage);
+                configurator.ConfigureDataConnection += Configurator_ConfigureDataConnection;
+                return configurator;
                 });
 
             services.AddDevExpressControls();

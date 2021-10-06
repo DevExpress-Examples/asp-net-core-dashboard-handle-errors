@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreCustomTextForInternalDashboardErrors", "AspNetCoreCustomTextForInternalDashboardErrors\AspNetCoreCustomTextForInternalDashboardErrors.csproj", "{86155783-3ACF-4EEA-8D82-16B528BE8923}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreThrowCustomExceptionDashboardErrorToast", "AspNetCoreThrowCustomExceptionDashboardErrorToast\AspNetCoreThrowCustomExceptionDashboardErrorToast.csproj", "{976C6E46-C403-4EB2-A06A-0F4720C9C55C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AspNetCoreCustomExceptionErrorToast", "AspNetCoreCustomExceptionErrorToast\AspNetCoreCustomExceptionErrorToast.csproj", "{976C6E46-C403-4EB2-A06A-0F4720C9C55C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
