@@ -14,12 +14,14 @@ The following example demostrates two approaches on how to handle errors in the 
 ## How to specify custom text for internal Dashboard errors
 
 <!-- default file list -->
-*Files to look at*:
+### Files to Look At
 * [Startup.cs](./CS/AspNetCoreCustomTextForInternalDashboardErrors/Startup.cs) 
 * [CustomDashboardController.cs](./CS/AspNetCoreCustomTextForInternalDashboardErrors/Controllers/CustomDashboardController.cs)
 * [Index.cshtml](./CS/AspNetCoreCustomTextForInternalDashboardErrors/Views/Home/Index.cshtml)
 
 <!-- default file list end -->
+
+### Description
 
 The dashboard in this project contains invalid data connection. This example shows how to override the default text in the exception that occurs when a controller tries to load data.
 
@@ -89,13 +91,14 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 ## How to throw a custom exception during a server-side processing and display the error in the Dashboard error toast
 
 <!-- default file list -->
-*Files to look at*:
-* [Startup.cs](./CS/AspNetCoreThrowCustomExceptionDashboardErrorToast/Startup.cs) 
-* [CustomDashboardController.cs](./CS/AspNetCoreThrowCustomExceptionDashboardErrorToast/Controllers/CustomDashboardController.cs)
-* [Index.cshtml](./CS/AspNetCoreThrowCustomExceptionDashboardErrorToast/Views/Home/Index.cshtml)
+### Files to Look At
+* [Startup.cs](./CS/AspNetCoreCustomExceptionErrorToast/Startup.cs) 
+* [CustomDashboardController.cs](./CS/AspNetCoreCustomExceptionErrorToast/Controllers/CustomDashboardController.cs)
+* [Index.cshtml](./CS/AspNetCoreCustomExceptionErrorToast/Views/Home/Index.cshtml)
 
 <!-- default file list end -->
 
+### Description
 This example shows how to throw a custom exception when a controller loads a dashboard.
 
 ![](image/web-throw-custom-exception-dashboard-toast.png)
@@ -104,31 +107,31 @@ Implement the `IExceptionFilter` interface to create a custom exception filter. 
 
 ```cs
 public class CustomExceptionFilter : IExceptionFilter {
-	internal bool isDevelopmentMode = false;
+    internal bool isDevelopmentMode = false;
 
-	public CustomExceptionFilter(IWebHostEnvironment hostingEnvironment) {
-		this.isDevelopmentMode = hostingEnvironment.IsDevelopment();
-	}
-	string GetJson(string message) {
-		return $"{{ \"Message\":\"{message}\" }}";
-	}
+    public CustomExceptionFilter(IWebHostEnvironment hostingEnvironment) {
+        this.isDevelopmentMode = hostingEnvironment.IsDevelopment();
+    }
+    string GetJson(string message) {
+        return $"{{ \"Message\":\"{message}\" }}";
+    }
 
-	public virtual void OnException(ExceptionContext context) {
-		if(context.ExceptionHandled || context.Exception == null) {
-			return;
-		}
+    public virtual void OnException(ExceptionContext context) {
+        if(context.ExceptionHandled || context.Exception == null) {
+            return;
+        }
 
-		CustomException customException = context.Exception as CustomException;
-		string message = customException != null ? (isDevelopmentMode ? CustomException.UnsafeMessage : CustomException.SafeMessage) : "";
+        CustomException customException = context.Exception as CustomException;
+        string message = customException != null ? (isDevelopmentMode ? CustomException.UnsafeMessage : CustomException.SafeMessage) : "";
 
-		context.Result = new ContentResult {
-			Content = GetJson(message),
-			ContentType = "application/json",
-			StatusCode = (int)HttpStatusCode.BadRequest
-		};
+        context.Result = new ContentResult {
+            Content = GetJson(message),
+            ContentType = "application/json",
+            StatusCode = (int)HttpStatusCode.BadRequest
+        };
 
-		context.ExceptionHandled = true;
-	}
+        context.ExceptionHandled = true;
+    }
 }
 ```
 
@@ -147,17 +150,17 @@ Specify the `CustomDashboard` controller when you configure endpoints:
 
 ```cs
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
-	// ...
-		app.UseEndpoints(endpoints => {
-			EndpointRouteBuilderExtension.MapDashboardRoute(endpoints, "api/dashboards", "CustomDashboard");
-			endpoints.MapControllerRoute(
-				name: "default",
-				pattern: "{controller=Home}/{action=Index}/{id?}"
-			);
-		});
+    // ...
+    app.UseEndpoints(endpoints => {
+        EndpointRouteBuilderExtension.MapDashboardRoute(endpoints, "api/dashboards", "CustomDashboard");
+        endpoints.MapControllerRoute(
+            name: "default",
+            pattern: "{controller=Home}/{action=Index}/{id?}"
+        );
+    });
 
-	app.UseStaticFiles();
-	app.UseDevExpressControls();
+    app.UseStaticFiles();
+    app.UseDevExpressControls();
 }
 ```
 
@@ -165,13 +168,13 @@ To throw an exception when the control loads a dashboard, create custom dashboar
 
 ```cs
 public void ConfigureServices(IServiceCollection services) {
-	services
-		.AddMvc()
-		.AddDefaultDashboardController(configurator => {
-			configurator.SetDashboardStorage(new CustomDashboardStorage());
-		});
-
-	services.AddDevExpressControls();
+    services.AddMvc();            
+    services.AddDevExpressControls();
+    services.AddScoped<DashboardConfigurator>((IServiceProvider serviceProvider) => {
+	DashboardConfigurator configurator = new DashboardConfigurator();
+	configurator.SetDashboardStorage(new CustomDashboardStorage());
+	return configurator;
+    });
 }
 
 public class CustomDashboardStorage : IDashboardStorage {
