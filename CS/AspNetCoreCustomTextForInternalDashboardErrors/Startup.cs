@@ -23,11 +23,10 @@ namespace AspNetCoreCustomTextForInternalDashboardErrors {
         public IFileProvider FileProvider { get; }
 
         public void ConfigureServices(IServiceCollection services) {
-            services
-                .AddMvc(options => {
-                    // Uncomment this line to catch all exceptions (not only from Dashboard):
-                    //options.Filters.Add(typeof(CustomExceptionFilter)); 
-                });
+            services.AddMvc(options => {
+                // Uncomment this line to catch all exceptions (not only from Dashboard):
+                //options.Filters.Add(typeof(CustomExceptionFilter)); 
+            });
             services.AddScoped<DashboardConfigurator>((IServiceProvider serviceProvider) => {
                 DashboardConfigurator configurator = new DashboardConfigurator();
                 DashboardFileStorage dashboardStorage = new DashboardFileStorage(FileProvider.GetFileInfo("App_Data/Dashboards").PhysicalPath);
@@ -37,7 +36,7 @@ namespace AspNetCoreCustomTextForInternalDashboardErrors {
                 configurator.SetDataSourceStorage(dataSourceStrorage);
                 configurator.ConfigureDataConnection += Configurator_ConfigureDataConnection;
                 return configurator;
-                });
+            });
 
             services.AddDevExpressControls();
         }
