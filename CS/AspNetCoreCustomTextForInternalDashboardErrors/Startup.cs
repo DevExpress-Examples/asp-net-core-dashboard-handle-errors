@@ -5,12 +5,14 @@ using DevExpress.DataAccess.ConnectionParameters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Hosting;
 using System.Net;
+using System.Linq;
 
 namespace AspNetCoreCustomTextForInternalDashboardErrors {
     public class Startup {
@@ -27,6 +29,13 @@ namespace AspNetCoreCustomTextForInternalDashboardErrors {
                     // Uncomment this line to catch all exceptions (not only from Dashboard):
                     //options.Filters.Add(typeof(CustomExceptionFilter)); 
                 })
+				.ConfigureApplicationPartManager((manager) => {
+					var dashboardApplicationParts = manager.ApplicationParts.Where(part => 
+						part is AssemblyPart && ((AssemblyPart)part).Assembly == typeof(DashboardController).Assembly).ToList();
+					foreach(var partToRemove in dashboardApplicationParts) {
+					  manager.ApplicationParts.Remove(partToRemove);
+					}
+				})
                 .AddDefaultDashboardController(configurator => {
                     DashboardFileStorage dashboardStorage = new DashboardFileStorage(FileProvider.GetFileInfo("App_Data/Dashboards").PhysicalPath);
                     DataSourceInMemoryStorage dataSourceStrorage = new DataSourceInMemoryStorage();
