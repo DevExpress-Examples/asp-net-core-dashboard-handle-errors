@@ -43,8 +43,8 @@ namespace AspNetCoreCustomTextForInternalDashboardErrors {
 
         void Configurator_ConfigureDataConnection(object sender, ConfigureDataConnectionWebEventArgs e) {
             // Invalid connection parameters:
-            switch (e.DataSourceName) {
-                case "sql":
+            switch (e.ConnectionName) {
+                case "sqlConn":
                     e.ConnectionParameters = new MsSqlConnectionParameters(@"localhost", "Northwind123", null, null, MsSqlAuthorizationType.Windows);
                     break;
             }
