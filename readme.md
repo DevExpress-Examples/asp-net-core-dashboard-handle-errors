@@ -13,13 +13,11 @@ The following example demostrates two approaches on how to handle errors in the 
 
 ## How to specify custom text for internal Dashboard errors
 
-<!-- default file list -->
-### Files to Look At
+### Files to Review
+
 * [Startup.cs](./CS/AspNetCoreCustomTextForInternalDashboardErrors/Startup.cs) 
 * [CustomDashboardController.cs](./CS/AspNetCoreCustomTextForInternalDashboardErrors/Controllers/CustomDashboardController.cs)
 * [Index.cshtml](./CS/AspNetCoreCustomTextForInternalDashboardErrors/Views/Home/Index.cshtml)
-
-<!-- default file list end -->
 
 ### Description
 
@@ -90,13 +88,11 @@ public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 
 ## How to throw a custom exception during a server-side processing and display the error in the Dashboard error toast
 
-<!-- default file list -->
-### Files to Look At
+### Files to Review
+
 * [Startup.cs](./CS/AspNetCoreCustomExceptionErrorToast/Startup.cs) 
 * [CustomDashboardController.cs](./CS/AspNetCoreCustomExceptionErrorToast/Controllers/CustomDashboardController.cs)
 * [Index.cshtml](./CS/AspNetCoreCustomExceptionErrorToast/Views/Home/Index.cshtml)
-
-<!-- default file list end -->
 
 ### Description
 This example shows how to throw a custom exception when a controller loads a dashboard.
