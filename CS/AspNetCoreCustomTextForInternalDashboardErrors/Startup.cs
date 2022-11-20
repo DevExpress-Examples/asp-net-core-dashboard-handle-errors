@@ -60,7 +60,7 @@ namespace AspNetCoreCustomTextForInternalDashboardErrors {
             app.UseRouting();
 
             app.UseEndpoints(endpoints => {
-                EndpointRouteBuilderExtension.MapDashboardRoute(endpoints, "api/dashboards", "CustomDashboard");
+                endpoints.MapDashboardRoute("api/dashboards", "CustomDashboard");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}"
