@@ -73,7 +73,7 @@ Specify the `CustomDashboard` controller when you configure endpoints:
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
 	// ...
 	app.UseEndpoints(endpoints => {
-		EndpointRouteBuilderExtension.MapDashboardRoute(endpoints, "api/dashboards", "CustomDashboard");
+		endpoints.MapDashboardRoute("api/dashboards", "CustomDashboard");
 		endpoints.MapControllerRoute(
 			name: "default",
 			pattern: "{controller=Home}/{action=Index}/{id?}"
@@ -148,7 +148,7 @@ Specify the `CustomDashboard` controller when you configure endpoints:
 public void Configure(IApplicationBuilder app, IWebHostEnvironment env) {
     // ...
     app.UseEndpoints(endpoints => {
-        EndpointRouteBuilderExtension.MapDashboardRoute(endpoints, "api/dashboards", "CustomDashboard");
+        endpoints.MapDashboardRoute("api/dashboards", "CustomDashboard");
         endpoints.MapControllerRoute(
             name: "default",
             pattern: "{controller=Home}/{action=Index}/{id?}"
