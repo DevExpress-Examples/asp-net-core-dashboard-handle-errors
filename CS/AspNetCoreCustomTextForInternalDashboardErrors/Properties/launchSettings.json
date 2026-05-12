@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "AspNetCoreCustomTextForInternalDashboardErrors": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:2632;http://localhost:2633"
+    }
+  }
+}
